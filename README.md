@@ -1,3 +1,3 @@
-# Maclev
+# maclev-api
 
-Setup your Mac development environment at 300mph. Visit [maclev.io](http://maclev.io) to get started.
+Back end project for [maclev.io](http://maclev.io).
