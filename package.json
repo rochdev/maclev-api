@@ -1,0 +1,39 @@
+{
+  "name": "maclev",
+  "version": "0.0.0",
+  "description": "Setup your Mac development environment at 300 mph",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rochdev/maclev.git"
+  },
+  "author": "rochdev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rochdev/maclev/issues"
+  },
+  "homepage": "http://maclev.io",
+  "private": true,
+  "engines": {
+    "node": ">=4 <5"
+  },
+  "dependencies": {
+    "JSONStream": "^1.1.1",
+    "async": "^1.5.2",
+    "compression": "^1.6.0",
+    "cors": "^2.7.1",
+    "event-stream": "^3.3.2",
+    "express": "^4.13.4",
+    "knex": "^0.10.0",
+    "lodash": "^4.1.0",
+    "mongodb": "^2.1.4",
+    "pg": "^4.5.1",
+    "q": "^1.4.1",
+    "require-dir": "^0.3.0",
+    "semver": "^5.1.0",
+    "superagent": "^1.7.1"
+  }
+}
