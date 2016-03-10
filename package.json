@@ -28,10 +28,12 @@
     "event-stream": "^3.3.2",
     "express": "^4.13.4",
     "knex": "^0.10.0",
+    "kue": "^0.10.5",
     "lodash": "^4.1.0",
     "pg": "^4.5.1",
     "require-dir": "^0.3.0",
     "semver": "^5.1.0",
-    "superagent": "^1.7.1"
+    "superagent": "^1.7.1",
+    "superagent-promise-plugin": "^2.1.0"
   }
 }
