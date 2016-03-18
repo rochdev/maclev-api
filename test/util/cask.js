@@ -68,23 +68,6 @@ hdiutil detach /Volumes/Foo\\ Bar
 rm /tmp/maclev/Foo\\ Bar.dmg`);
   });
 
-  it('should return the correct script for a ZIP', function() {
-    result = {
-      version: '1.2.3',
-      name: 'Foo Bar',
-      app: 'Foo Bar.app',
-      url: 'http://foo-bar.com/Foo-Bar.zip'
-    };
-
-    parser.parse.withArgs(url).returns(Promise.resolve(result));
-
-    return expect(cask.zip('foo-bar')).to.eventually.equal(`# Foo Bar
-curl -L http://foo-bar.com/Foo-Bar.zip -o /tmp/maclev/Foo\\ Bar.zip
-unzip -o /tmp/maclev/Foo\\ Bar.zip -d /tmp/maclev
-sudo mv /tmp/maclev/Foo\\ Bar.app /Applications
-rm /tmp/maclev/Foo\\ Bar.zip`);
-  });
-
   it('should return the correct script for a DMG with binaries', function() {
     result = {
       version: '1.2.3',
@@ -107,6 +90,46 @@ sudo ln -s /Applications/Foo\\ Bar.app/Contents/Resources/app/foo.sh /usr/local/
 sudo ln -s /Applications/Foo\\ Bar.app/Contents/Resources/app/bar.sh /usr/local/bin/bar
 hdiutil detach /Volumes/Foo\\ Bar
 rm /tmp/maclev/Foo\\ Bar.dmg`);
+  });
+
+  it('should return the correct script for a ZIP', function() {
+    result = {
+      version: '1.2.3',
+      name: 'Foo Bar',
+      app: 'Foo Bar.app',
+      url: 'http://foo-bar.com/Foo-Bar.zip'
+    };
+
+    parser.parse.withArgs(url).returns(Promise.resolve(result));
+
+    return expect(cask.zip('foo-bar')).to.eventually.equal(`# Foo Bar
+curl -L http://foo-bar.com/Foo-Bar.zip -o /tmp/maclev/Foo\\ Bar.zip
+unzip -o /tmp/maclev/Foo\\ Bar.zip -d /tmp/maclev
+sudo mv /tmp/maclev/Foo\\ Bar.app /Applications
+rm /tmp/maclev/Foo\\ Bar.zip`);
+  });
+
+  it('should return the correct script for a ZIP with binaries', function() {
+    result = {
+      version: '1.2.3',
+      name: 'Foo Bar',
+      app: 'Foo Bar.app',
+      url: 'http://foo-bar.com/Foo-Bar.zip',
+      binary: {
+        'Foo Bar.app/Contents/Resources/app/foo.sh': 'foo',
+        'Foo Bar.app/Contents/Resources/app/bar.sh': 'bar'
+      }
+    };
+
+    parser.parse.withArgs(url).returns(Promise.resolve(result));
+
+    return expect(cask.zip('foo-bar')).to.eventually.equal(`# Foo Bar
+curl -L http://foo-bar.com/Foo-Bar.zip -o /tmp/maclev/Foo\\ Bar.zip
+unzip -o /tmp/maclev/Foo\\ Bar.zip -d /tmp/maclev
+sudo mv /tmp/maclev/Foo\\ Bar.app /Applications
+sudo ln -s /Applications/Foo\\ Bar.app/Contents/Resources/app/foo.sh /usr/local/bin/foo
+sudo ln -s /Applications/Foo\\ Bar.app/Contents/Resources/app/bar.sh /usr/local/bin/bar
+rm /tmp/maclev/Foo\\ Bar.zip`);
   });
 });
 
