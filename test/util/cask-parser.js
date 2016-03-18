@@ -76,6 +76,23 @@ end`
     });
   });
 
+  it('should extract binaries', function() {
+    request.end.returns(Promise.resolve({
+      text: `cask 'foo-bar' do
+  version '1.2.3'
+  url 'http://foo-bar.com/download'
+  binary 'Foo Bar.app/Contents/Resources/app/foo.sh', target: 'foo'
+  binary 'Foo Bar.app/Contents/Resources/app/bar.sh', target: 'bar'
+end`
+    }));
+
+    return parser.parse(url).then((result) => {
+      expect(result).to.have.property('binary');
+      expect(result.binary).to.have.property('Foo Bar.app/Contents/Resources/app/foo.sh', 'foo');
+      expect(result.binary).to.have.property('Foo Bar.app/Contents/Resources/app/bar.sh', 'bar');
+    });
+  });
+
   it('should handle version variable replacement in URL', function() {
     request.end.returns(Promise.resolve({
       text: `cask 'foo-bar' do
