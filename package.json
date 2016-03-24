@@ -4,7 +4,7 @@
   "description": "Setup your Mac development environment at 300 mph",
   "main": "server.js",
   "scripts": {
-    "test": "mocha lib test --recursive --reporter mocha-unfunk-reporter"
+    "test": "MOCHA_UNFUNK_STYLE=none mocha lib test --recursive --reporter mocha-unfunk-reporter"
   },
   "repository": {
     "type": "git",
