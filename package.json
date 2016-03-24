@@ -4,7 +4,7 @@
   "description": "Setup your Mac development environment at 300 mph",
   "main": "server.js",
   "scripts": {
-    "test": "mocha lib test --recursive"
+    "test": "mocha lib test --recursive --reporter mocha-unfunk-reporter"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "mocha": "^2.4.5",
+    "mocha-unfunk-reporter": "^0.4.0",
     "mockery": "^1.4.1",
     "sinon": "^1.17.3"
   }
