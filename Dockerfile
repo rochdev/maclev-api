@@ -1,5 +1,8 @@
 FROM mhart/alpine-node:4
 
+RUN apk add --no-cache ruby && \
+    rm -rf /var/cache/apk/*
+
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 

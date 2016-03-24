@@ -17,7 +17,19 @@ exports.up = function(knex, Promise) {
       table.string('name').primary();
     }),
 
+    knex.schema.createTable('python_versions', function(table) {
+      table.string('name').primary();
+    }),
+
+    knex.schema.createTable('python_packages', function(table) {
+      table.string('name').primary();
+    }),
+
     knex.schema.createTable('ruby_versions', function(table) {
+      table.string('name').primary();
+    }),
+
+    knex.schema.createTable('ruby_gems', function(table) {
       table.string('name').primary();
     }),
 
@@ -30,7 +42,10 @@ exports.up = function(knex, Promise) {
         {name: 'brew_formulas'},
         {name: 'node_modules'},
         {name: 'node_versions'},
-        {name: 'ruby_versions'}
+        {name: 'python_versions'},
+        {name: 'python_packages'},
+        {name: 'ruby_versions'},
+        {name: 'ruby_gems'}
       ]).into('updates');
     })
   ]);
@@ -42,6 +57,9 @@ exports.down = function(knex, Promise) {
     knex.schema.dropTable('brew_formulas'),
     knex.schema.dropTable('node_modules'),
     knex.schema.dropTable('node_versions'),
+    knex.schema.dropTable('python_packages'),
+    knex.schema.dropTable('python_versions'),
+    knex.schema.dropTable('ruby_gems'),
     knex.schema.dropTable('ruby_versions'),
     knex.schema.dropTable('updates')
   ]);
