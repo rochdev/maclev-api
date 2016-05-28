@@ -45,7 +45,7 @@ describe('Cask', function() {
     return expect(cask.dmg('foo-bar')).to.eventually.equal(`# Foo Bar
 curl -L http://foo-bar.com/Foo-Bar.dmg -o /tmp/maclev/Foo\\ Bar.dmg
 hdiutil attach -mountpoint /Volumes/Foo\\ Bar -nobrowse /tmp/maclev/Foo\\ Bar.dmg
-sudo cp -r /Volumes/Foo\\ Bar/Foo\\ Bar.app /Applications
+sudo cp -R /Volumes/Foo\\ Bar/Foo\\ Bar.app /Applications
 hdiutil detach /Volumes/Foo\\ Bar
 rm /tmp/maclev/Foo\\ Bar.dmg`);
   });
@@ -85,7 +85,7 @@ rm /tmp/maclev/Foo\\ Bar.dmg`);
     return expect(cask.dmg('foo-bar')).to.eventually.equal(`# Foo Bar
 curl -L http://foo-bar.com/Foo-Bar.dmg -o /tmp/maclev/Foo\\ Bar.dmg
 hdiutil attach -mountpoint /Volumes/Foo\\ Bar -nobrowse /tmp/maclev/Foo\\ Bar.dmg
-sudo cp -r /Volumes/Foo\\ Bar/Foo\\ Bar.app /Applications
+sudo cp -R /Volumes/Foo\\ Bar/Foo\\ Bar.app /Applications
 sudo ln -s /Applications/Foo\\ Bar.app/Contents/Resources/app/foo.sh /usr/local/bin/foo
 sudo ln -s /Applications/Foo\\ Bar.app/Contents/Resources/app/bar.sh /usr/local/bin/bar
 hdiutil detach /Volumes/Foo\\ Bar

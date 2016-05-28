@@ -12,8 +12,7 @@ describe('Cask Parser', function() {
 
   before(function() {
     request = {
-      get: sinon.stub(),
-      end: sinon.stub()
+      get: sinon.stub()
     };
 
     url = 'https://raw.githubusercontent.com/caskroom/homebrew-cask/master/Casks/foo-bar.rb';
@@ -24,14 +23,11 @@ describe('Cask Parser', function() {
   });
 
   beforeEach(function() {
-    request.get.withArgs(url).returns(request);
-
     parser = require('../../lib/util/cask-parser');
   });
 
   afterEach(function() {
     request.get.reset();
-    request.end.reset();
   });
 
   after(function() {
@@ -39,7 +35,7 @@ describe('Cask Parser', function() {
   });
 
   it('should return the correct result', function() {
-    request.end.returns(Promise.resolve({
+    request.get.withArgs(url).returns(Promise.resolve({
       text: `cask 'foo-bar' do
   version '1.2.3'
   url 'http://foo-bar.com/download'
@@ -59,7 +55,7 @@ end`
   });
 
   it('should always return the last found value for a key', function() {
-    request.end.returns(Promise.resolve({
+    request.get.withArgs(url).returns(Promise.resolve({
       text: `cask 'foo-bar' do
   version '1.2.3'
   url 'http://foo-bar.com/download'
@@ -77,7 +73,7 @@ end`
   });
 
   it('should extract binaries', function() {
-    request.end.returns(Promise.resolve({
+    request.get.withArgs(url).returns(Promise.resolve({
       text: `cask 'foo-bar' do
   version '1.2.3'
   url 'http://foo-bar.com/download'
@@ -94,7 +90,7 @@ end`
   });
 
   it('should handle version variable replacement in URL', function() {
-    request.end.returns(Promise.resolve({
+    request.get.withArgs(url).returns(Promise.resolve({
       text: `cask 'foo-bar' do
   version '1.2.3'
   url 'http://foo-bar.com/#{version}/download'
@@ -105,7 +101,7 @@ end`
   });
 
   it('should handle version variable replacement in URL (after comma only)', function() {
-    request.end.returns(Promise.resolve({
+    request.get.withArgs(url).returns(Promise.resolve({
       text: `cask 'foo-bar' do
   version '1.2.3,456'
   url 'http://foo-bar.com/#{version.after_comma}/download'
@@ -116,7 +112,7 @@ end`
   });
 
   it('should handle version variable replacement in URL (major minor only)', function() {
-    request.end.returns(Promise.resolve({
+    request.get.withArgs(url).returns(Promise.resolve({
       text: `cask 'foo-bar' do
   version '1.2.3'
   url 'http://foo-bar.com/#{version.major_minor}/download'
@@ -127,7 +123,7 @@ end`
   });
 
   it('should handle version variable replacement in URL (before dash only)', function() {
-    request.end.returns(Promise.resolve({
+    request.get.withArgs(url).returns(Promise.resolve({
       text: `cask 'foo-bar' do
   version '1.2.3-456'
   url "http://foo-bar.com/#{version.sub(%r{-.*}, '')}/download"
@@ -138,7 +134,7 @@ end`
   });
 
   it('should handle version variable replacement in URL (first word only)', function() {
-    request.end.returns(Promise.resolve({
+    request.get.withArgs(url).returns(Promise.resolve({
       text: `cask 'foo-bar' do
   version '1.2.3'
   url 'http://foo-bar.com/#{version[%r{^\\w+}]}/download'
@@ -149,7 +145,7 @@ end`
   });
 
   it('should handle version variable replacement in URL (replacing dots with underscores)', function() {
-    request.end.returns(Promise.resolve({
+    request.get.withArgs(url).returns(Promise.resolve({
       text: `cask 'foo-bar' do
   version '1.2.3'
   url "http://foo-bar.com/#{version.gsub('.', '_')}/download"
